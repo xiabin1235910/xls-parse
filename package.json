@@ -1,0 +1,25 @@
+{
+  "name": "xls-parse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiabin1235910/xls-parse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiabin1235910/xls-parse/issues"
+  },
+  "homepage": "https://github.com/xiabin1235910/xls-parse#readme",
+  "dependencies": {
+    "node-excel-stream": "^1.2.1",
+    "node-xlsx": "^0.21.0",
+    "sqlite3": "^5.0.11"
+  }
+}

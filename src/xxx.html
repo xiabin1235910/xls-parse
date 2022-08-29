@@ -1,0 +1,106 @@
+<!-- // 在不使用任何前端框架的情况下，实现一个简单的网页版客户管理系统
+// 要求：
+// 1.功能必须包括列表页，增加客户，修改客户名称，删除客户
+// 2.客户属性有：客户名称，客户地址，客户等级（青铜/白银/黑金）
+
+// 提示：
+// 1.无须鉴权
+// 2.可自行在页面前端模拟数据，无须搭建后台服务 -->
+
+<html>
+
+<body>
+    <script>
+
+        function showForm() {
+            document.querySelector('form').show();
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            let root = document.querySelector('main');
+    
+            let users = [{
+                id: 1,
+                name: 'bill',
+                address: 'shanghai',
+                level: 'low',
+            }, {
+                id: 2,
+                name: 'ben',
+                address: 'beijing',
+                level: 'medium',
+            }]
+    
+            const update = (id) => {
+                showForm();
+                const user = users.find((user) => user.id === id);
+                document.querySelector('input[name="name"]').value = user.name;
+                document.querySelector('input[name="address"]').value = user.address;
+                document.querySelector('input[name="level"]').value = user.level;
+            }
+    
+            const addOrUpdate = (user) => {
+                const index = users.findIndex((u) => u.id === user.id);
+                if (~index) {
+                    users[index] = user;
+    
+                    const container = document.querySelector(`#${id}`);
+    
+                    Object.keys(user).forEach((key, i) => {
+                        container.querySelectorAll('span')[i].value = user[key];
+                    })
+    
+                } else {
+                    root.append(`
+                        <div id=${user.id}>
+                            <span>${user.name}</span>
+                            <span>${user.address}</span>
+                            <span>${user.level}</span>
+                            <span> <a href="javascript:update(${user.id})">update</a> <a href="javascript:deleteUser(${user.id})">delete</a> </span>
+                        </div>
+                    `)
+                }
+    
+                document.querySelector('form').hide();
+            }
+    
+            const deleteUser = (id) => {
+                document.querySelector(`#${id}`).remove();
+            }
+    
+            let insertHtml = users.reduce((acc, user) => {
+                return acc + `
+                    <div id=${user.id}>
+                        <span>${user.name}</span>
+                        <span>${user.address}</span>
+                        <span>${user.level}</span>
+                        <span> <a href="javascript:update(${user.id})">update</a> <a href="javascript:deleteUser(${user.id})">delete</a> </span>
+                    </div>
+                `
+            }, '');
+    
+            console.log(insertHtml)
+    
+            root.innerHTML = insertHtml;
+    
+            document.querySelector('form').submit = (e) => {
+                e.target.preventDefault();
+                addOrUpdate({...e.target.formData, id: users.length});
+            }
+        })
+    </script>
+
+    <a href="javascript:showForm()">add</a>
+    <main>
+
+    </main>
+
+    <form style="display: none">
+        <input type="text" name="name" />
+        <input type="text" name="address" />
+        <input type="text" name="level" />
+        <button>submit</button>
+    </form>
+</body>
+
+</html>
